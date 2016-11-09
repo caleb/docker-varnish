@@ -6,11 +6,6 @@ ENV VARNISH_VERSION      5.0.0
 ENV VARNISH_FULL_VERSION 5.0.0-1
 ENV VARNISH_ARCH         amd64
 
-ENV VCL_CONFIG      /etc/varnish/default.vcl
-ENV CACHE_SIZE      64m
-ENV STORAGE_SPEC    malloc,${CACHE_SIZE}
-ENV VARNISHD_PARAMS -p default_ttl=3600 -p default_grace=3600
-
 ADD https://repo.varnish-cache.org/pkg/${VARNISH_VERSION}/varnish_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb /varnish_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb
 ADD https://repo.varnish-cache.org/pkg/${VARNISH_VERSION}/varnish-dev_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb /varnish-dev_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb
 
@@ -22,6 +17,14 @@ RUN dpkg -i /varnish_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb \
 &&  dpkg -i /varnish-dev_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb \
 &&  rm /varnish_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb \
 &&  rm /varnish-dev_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb
+
+#
+# Environment variables controlling varnish
+#
+ENV VCL_CONFIG      /etc/varnish/default.vcl
+ENV CACHE_SIZE      64m
+ENV STORAGE_KIND    malloc
+ENV VARNISHD_PARAMS -p default_ttl=3600 -p default_grace=3600
 
 ADD docker-entrypoint.sh /entrypoint.sh
 
