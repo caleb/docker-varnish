@@ -3,7 +3,7 @@ set -e
 
 if [ "${1}" == "varnish" ]; then
   if [ -z "${STORAGE_SPEC}" ]; then
-    if [ ${STORAGE_KIND} = 'file' ] || [ ${STORAGE_KIND} = 'persistent' ]; then
+    if [ ${STORAGE_KIND} = 'file' ]; then
       touch "${STORAGE_FILE}"
       chown varnish "${STORAGE_FILE}"
 
