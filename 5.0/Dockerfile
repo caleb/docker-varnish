@@ -8,6 +8,7 @@ ENV VARNISH_ARCH         amd64
 
 ENV VCL_CONFIG      /etc/varnish/default.vcl
 ENV CACHE_SIZE      64m
+ENV STORAGE_SPEC    malloc,${CACHE_SIZE}
 ENV VARNISHD_PARAMS -p default_ttl=3600 -p default_grace=3600
 
 ADD https://repo.varnish-cache.org/pkg/${VARNISH_VERSION}/varnish_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb /varnish_${VARNISH_FULL_VERSION}_${VARNISH_ARCH}.deb
